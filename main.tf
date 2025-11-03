@@ -11,6 +11,13 @@ terraform {
   }
 }
 
+terraform {
+  backend "gcs" {
+    bucket  = "seven-tf-state-bucket"
+    prefix  = "terraform/state"
+  }
+}
+
 provider "google" {
   project = "seven-exp"
   region  = "us-central1"
