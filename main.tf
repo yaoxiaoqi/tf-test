@@ -46,6 +46,9 @@ resource "google_storage_bucket" "test_bucket" {
 
 resource "google_pubsub_topic" "test_topic" {
   name = "yorumew-topic-${random_id.suffix.hex}"
+  message_storage_policy {
+    allowed_persistence_regions = ["us-central1"]
+  }
 }
 
 # Outputs the name of the created bucket after apply
