@@ -1,3 +1,6 @@
+# Mac OS system files
+.DS_Store
+
 # Local .terraform directories
 .terraform/
 bin/

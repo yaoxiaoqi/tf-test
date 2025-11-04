@@ -4,15 +4,13 @@ steps:
   script: |
     git clone https://github.com/yaoxiaoqi/tf-test.git
 
-# - name: 'gcr.io/cloud-builders/go:debian'
-#   id: 'make'
-#   script: |
-#     go version
-#     echo $GOPATH
-#     pwd
-#     cd terraform-provider-google
-#     git checkout label-test
-#     make build
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: 'get binary'
+  script: |
+    mkdir bin
+    gsutil cp gs://seven-tf-provider-bin/bin/terraform-provider-google bin/terraform-provider-google
+    cd bin
+    chmod +x terraform-provider-google
 
 - name: 'hashicorp/terraform:latest'
   id: 'Terraform Init'
@@ -40,6 +38,7 @@ steps:
     cd tf-test
     terraform init
     TF_CLI_CONFIG_FILE="/workspace/tf-dev-override.tfrc" terraform plan
+    TF_CLI_CONFIG_FILE="/workspace/tf-dev-override.tfrc" terraform apply -auto-approve
 
 # - name: 'hashicorp/terraform:1.0.0'
 #   id: 'Terraform Plan'
